@@ -43,6 +43,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Abstract\IAnimal.cs" />
+    <Compile Include="Animals\Bear.cs" />
+    <Compile Include="Animals\Elephant.cs" />
+    <Compile Include="Animals\Fox.cs" />
+    <Compile Include="Animals\Lion.cs" />
+    <Compile Include="Animals\Tiger.cs" />
+    <Compile Include="Animals\Wolf.cs" />
     <Compile Include="Enums\State.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -50,8 +56,6 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Animals\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
