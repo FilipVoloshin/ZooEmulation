@@ -1,12 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace ZooImitation.Abstract
+﻿namespace ZooImitation.Abstract
 {
-    interface IAnimalRepository
+    public interface IAnimalRepository
     {
+        void Add(IAnimal animal, string name);
+        void Feed(string name);
+        void Cure(string name);
+        void Kick();
+        int Count { get; }
     }
 }
