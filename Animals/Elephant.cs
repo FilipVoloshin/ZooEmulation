@@ -1,12 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using ZooImitation.Abstract;
+using ZooImitation.Enums;
 
-namespace ZooImitation.Animals
+namespace ZooImitation.AnimalTypes
 {
-    class Elephant
+    public sealed class Elephant : IAnimal
     {
+        public Elephant()
+        {
+            DefaultHealth = 7;
+            CurrentHealth = 7;
+            State = State.Full;
+        }
+
+        public int DefaultHealth { get; }
+        public int CurrentHealth { get; set; }
+        public State State { get; set; }
+        public string Name { get; set; }
     }
 }
