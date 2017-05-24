@@ -1,9 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using ZooImitation.Abstract;
 using ZooImitation.Enums;
 
 namespace ZooImitation
@@ -28,7 +23,7 @@ namespace ZooImitation
                 return randomValue;
             }
             else
-                throw new ArgumentNullException("Zero animals count!", "There are no animals in Zoo!");
+               throw new ApplicationException("All animals are dead!");
         }
 
         public void StartSimulation()

@@ -1,9 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using ZooImitation.AnimalTypes;
 
 namespace ZooImitation
 {
@@ -11,6 +6,22 @@ namespace ZooImitation
     {
         static void Main(string[] args)
         {
+            try
+            {
+                
+            }
+            catch (ApplicationException ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            finally
+            {
+                Console.ReadLine();
+            }
         }
     }
 }
