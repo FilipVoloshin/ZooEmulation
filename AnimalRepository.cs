@@ -15,11 +15,26 @@ namespace ZooImitation
             _animalList = new List<IAnimal>();
         }
 
-        public IList<IAnimal> GetAnimalsList => _animalList;
+        public IList<IAnimal> Animals => _animalList; //Repo logic
         public int Count => _animalList.Count();
 
         /// <summary>
-        /// Adds animal to the repository
+        /// Shows all animals in repositry to the console
+        /// </summary>
+        public void ShowAnimals()
+        {
+            Console.WriteLine(new string('-',86));
+            foreach(var animal in _animalList)
+            {
+                Console.WriteLine($"Type - {animal.GetType().Name},\t Name - {animal.Name},\t" +
+                                  $"State - {animal.State},\t CurrentHealth - {animal.CurrentHealth},\t" +
+                                  $"Max Health - {animal.DefaultHealth} ");
+            }
+            Console.WriteLine(new string('-', 86));
+        }
+
+        /// <summary>
+        /// Adds animal to the repository, and logs information in the console
         /// </summary>
         /// <param name="animal">instance of IAnimal type</param>
         /// <param name="name">animal's name</param>
@@ -27,11 +42,12 @@ namespace ZooImitation
         {
             animal.Name = name;
             _animalList.Add(animal);
-            Console.WriteLine($"We added {animal.GetType().Name}, and named it {animal.Name}.");
+            var message = $"We added {animal.GetType().Name}, and named it {animal.Name}.";
+            message.ConsoleWrite();
         }
 
         /// <summary>
-        /// Feeds animal (Ill->Hungry->Full)
+        /// Feeds animal (Ill->Hungry->Full) and logs information in the console
         /// </summary>
         /// <param name="name">animal's name</param>
         /// <exception cref="NotImplementedException"></exception>
@@ -39,50 +55,52 @@ namespace ZooImitation
         {
             var animals = _animalList
                 .Where(animal => animal.Name == name);
+            var message = "";
             foreach (var animal in animals)
             {
                 switch (animal.State)
                 {
                     case State.Ill:
                         animal.State = State.Hungry;
-                        Console.WriteLine($"We fed {name} and it has become hungry!");
+                        message = $"We fed {animal.GetType().Name} with name - {name} and it has become hungry!";
                         break;
                     case State.Hungry:
                         animal.State = State.Full;
-                        Console.WriteLine($"We fed {name} and it is full now!");
+                        message = $"We fed {animal.GetType().Name} with name - {name} and it is full now!";
                         break;
                     case State.Full:
-                        Console.WriteLine($"{name} is full!");
+                        message = $"{animal.GetType().Name} with name - {name} is full!";
                         break;
                     case State.Dead:
-                        Console.WriteLine($"{name} is dead!");
+                        message = $"We fed {animal.GetType().Name} with name - {name} is dead!";
                         break;
                     default:
                         throw new NotImplementedException();
                 }
+                message.ConsoleWrite();
             }
         }
 
         /// <summary>
-        /// Cures animal/animals with specified name
+        /// Cures animal/animals with specified name/names and logs information in the console
         /// </summary>
         /// <param name="name">animal's name</param>
         public void Cure(string name)
         {
+            var message = "";
             var animals = _animalList.Where(animal => animal.Name == name);
             foreach (var animal in animals)
             {
                 if (animal.CurrentHealth < animal.DefaultHealth)
                 {
                     animal.CurrentHealth += 1;
-                    Console.WriteLine(animals.Count() > 1
-                        ? $"{animals.Count()} animals named {name} healed."
-                        : $"Animal {name} healed.");
+                    message =  $"Animal ({animal.GetType().Name}) {name} healed.";
                 }
                 else
-                    Console.WriteLine(animals.Count() > 1
-                        ? $"Animals named \"{name}\" ({animal.GetType().Name}) have full health!"
-                        : $"Animal {name} ({animal.GetType().Name}) has full health!");
+                {
+                    message = $"Animal {name} ({animal.GetType().Name}) has full health!";
+                }
+                message.ConsoleWrite();
             }
         }
 
@@ -93,13 +111,17 @@ namespace ZooImitation
         {
             var deadAnimals = _animalList.Select(animal => animal)
                 .Where(animal => animal.State == State.Dead);
+            var message = "";
             if (deadAnimals.Count() >= 1)
             {
                 _animalList = _animalList.Except(deadAnimals).ToList();
-                Console.WriteLine($"There are {deadAnimals.Count()} dead animals. We kicked them");
+                message = $"There are {deadAnimals.Count()} dead animals. We kicked them.";
             }
             else
-                Console.WriteLine($"Good news. There are no dead animals in the zoo.");
+            {
+                message = "Good news. There are no dead animals in the zoo.";
+            }
+            message.ConsoleWrite();
         }
     }
 }
