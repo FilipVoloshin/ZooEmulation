@@ -52,6 +52,7 @@
     <Compile Include="Animals\Tiger.cs" />
     <Compile Include="Animals\Wolf.cs" />
     <Compile Include="Enums\State.cs" />
+    <Compile Include="Helpers\Display.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
