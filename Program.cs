@@ -11,10 +11,12 @@ namespace ZooImitation
             {
                 var animals = new AnimalRepository();
                 var zoo = new Zoo(animals);
+                var breakLogic = true;
                 do
                 {
                     Console.WriteLine(new string('*', 22));
-                    Console.WriteLine("Choose action:\n1. Add animal \n2. Feed animal\n3. Cure animal \n4. Remove dead animals");
+                    Console.WriteLine("Choose action:\n1. Add animal \n2. Feed animal\n" +
+                        "3. Cure animal \n4. Remove dead animals\n5. Show all animals in zoo\n");
                     Console.WriteLine(new string('*', 22));
 
                     int variant = Convert.ToInt32(Console.ReadLine());
@@ -65,9 +67,12 @@ namespace ZooImitation
                         case 4:
                             animals.Kick();
                             break;
+                        case 5:
+                            animals.ShowAnimals();
+                            break;
                     }
                 }
-                while (true);  
+                while (breakLogic);  
             }
             catch (ApplicationException ex)
             {
