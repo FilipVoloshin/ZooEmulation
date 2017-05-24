@@ -77,8 +77,8 @@ namespace ZooImitation
                     default:
                         throw new NotImplementedException();
                 }
+                message.ConsoleWrite();
             }
-            message.ConsoleWrite();
         }
 
         /// <summary>
@@ -94,18 +94,14 @@ namespace ZooImitation
                 if (animal.CurrentHealth < animal.DefaultHealth)
                 {
                     animal.CurrentHealth += 1;
-                    message = animals.Count() > 1
-                        ? $"{animals.Count()} animals named {name} healed."
-                        : $"Animal {name} healed.";
+                    message =  $"Animal ({animal.GetType().Name}) {name} healed.";
                 }
                 else
                 {
-                    message = animals.Count() > 1
-                        ? $"Animals named \"{name}\" ({animal.GetType().Name}) have full health!"
-                        : $"Animal {name} ({animal.GetType().Name}) has full health!";
+                    message = $"Animal {name} ({animal.GetType().Name}) has full health!";
                 }
+                message.ConsoleWrite();
             }
-            message.ConsoleWrite();
         }
 
         /// <summary>
