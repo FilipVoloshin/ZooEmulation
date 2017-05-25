@@ -56,6 +56,11 @@ namespace ZooImitation
             var animals = _animalList
                 .Where(animal => animal.Name == name);
             var message = "";
+            if (animals.Count() == 0)
+            {
+                message = $"Sorry, there are no animals in zoo with name {name}";
+                message.ConsoleWrite();
+            }
             foreach (var animal in animals)
             {
                 switch (animal.State)
@@ -87,8 +92,13 @@ namespace ZooImitation
         /// <param name="name">animal's name</param>
         public void Cure(string name)
         {
-            var message = "";
             var animals = _animalList.Where(animal => animal.Name == name);
+            var message = "";
+            if (animals.Count() == 0)
+            {
+                message = $"Sorry, there are no animals in zoo with name {name}";
+                message.ConsoleWrite();
+            }
             foreach (var animal in animals)
             {
                 if (animal.CurrentHealth < animal.DefaultHealth)
