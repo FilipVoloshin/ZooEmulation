@@ -8,16 +8,14 @@ namespace ZooImitation
     {
         static void Main(string[] args)
         {
+            Console.ForegroundColor = ConsoleColor.White;
+
             #region Animals hardcode create
             var animals = new AnimalRepository();
-            var zoo = new Zoo(animals);
-
-            animals.Add(new Fox(), "Foxxy");
-            animals.Add(new Lion(), "Symba");
-            animals.Add(new Tiger(), "Sharhan");
 
             #endregion
-
+            
+            var zoo = new Zoo(animals, 5); 
             try
             {
                 do
@@ -27,7 +25,7 @@ namespace ZooImitation
                         "3. Cure animal \n4. Remove dead animals\n5. Show all animals in zoo\n");
                     Console.WriteLine(new string('*', 22));
 
-                    int variant = Convert.ToInt32(Console.ReadLine());
+                    var variant = Convert.ToInt32(Console.ReadLine());
 
                     switch (variant)
                     {
@@ -78,26 +76,22 @@ namespace ZooImitation
                         case 5:
                             animals.ShowAnimals();
                             break;
+                        default:
+                            break;
                     }
-                    if(animals.Count == 0)
+                    if (animals.Count == 0)
                     {
                         Console.WriteLine("\n\n****All animals are dead!****");
                     }
                 }
-                while (animals.Count > 0);  
+                while (animals.Count != 0);
             }
-            catch (ApplicationException ex)
+            catch (Exception e)
             {
-                Console.WriteLine(ex.Message);
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
-            finally
-            {
-                Console.ReadLine();
+                Console.WriteLine(e.Message);
             }
         }
+
     }
 }
+

@@ -126,12 +126,13 @@ namespace ZooImitation
             {
                 _animalList = _animalList.Except(deadAnimals).ToList();
                 message = $"There are {deadAnimals.Count()} dead animals. We kicked them.";
+                message.ConsoleWrite();
             }
             else
             {
                 message = "Good news. There are no dead animals in the zoo.";
-            }
-            message.ConsoleWrite();
+                message.ConsoleWrite();
+            }  
         }
     }
 }
