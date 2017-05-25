@@ -6,7 +6,7 @@ using ZooImitation.Enums;
 
 namespace ZooImitation
 {
-    public class AnimalRepository : IAnimalRepository
+    public class AnimalRepository
     {
         private IList<IAnimal> _animalList;
 
@@ -15,7 +15,7 @@ namespace ZooImitation
             _animalList = new List<IAnimal>();
         }
 
-        public IList<IAnimal> Animals => _animalList; //Repo logic
+        public IList<IAnimal> Animals => _animalList;
         public int Count => _animalList.Count();
 
         /// <summary>
@@ -56,6 +56,11 @@ namespace ZooImitation
             var animals = _animalList
                 .Where(animal => animal.Name == name);
             var message = "";
+            if (animals.Count() == 0)
+            {
+                message = $"Sorry, there are no animals in zoo with name {name}";
+                message.ConsoleWrite();
+            }
             foreach (var animal in animals)
             {
                 switch (animal.State)
@@ -87,8 +92,13 @@ namespace ZooImitation
         /// <param name="name">animal's name</param>
         public void Cure(string name)
         {
-            var message = "";
             var animals = _animalList.Where(animal => animal.Name == name);
+            var message = "";
+            if (animals.Count() == 0)
+            {
+                message = $"Sorry, there are no animals in zoo with name {name}";
+                message.ConsoleWrite();
+            }
             foreach (var animal in animals)
             {
                 if (animal.CurrentHealth < animal.DefaultHealth)
@@ -116,12 +126,13 @@ namespace ZooImitation
             {
                 _animalList = _animalList.Except(deadAnimals).ToList();
                 message = $"There are {deadAnimals.Count()} dead animals. We kicked them.";
+                message.ConsoleWrite();
             }
             else
             {
                 message = "Good news. There are no dead animals in the zoo.";
-            }
-            message.ConsoleWrite();
+                message.ConsoleWrite();
+            }  
         }
     }
 }

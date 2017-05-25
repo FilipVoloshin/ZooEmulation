@@ -10,9 +10,11 @@ namespace ZooImitation
         /// <param name="message">Message to log in console</param>
         public static void ConsoleWrite(this string message)
         {
+            Console.ForegroundColor = ConsoleColor.Red;
             var wordsCount = message.Length + 3;
             Console.WriteLine(new string('-',wordsCount));
             Console.WriteLine($" - {message}");
+            Console.ForegroundColor = ConsoleColor.White;
         }
     }
 }
