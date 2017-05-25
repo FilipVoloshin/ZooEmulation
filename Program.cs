@@ -1,5 +1,5 @@
 ﻿using System;
-using ZooImitation.AnimalTypes;
+using ZooImitation.Animals;
 
 namespace ZooImitation
 {
