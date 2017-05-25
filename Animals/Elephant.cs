@@ -1,20 +1,11 @@
-﻿using ZooImitation.Abstract;
-using ZooImitation.Enums;
-
-namespace ZooImitation.AnimalTypes
+﻿namespace ZooImitation.Animals
 {
-    public sealed class Elephant : IAnimal
+    public sealed class Elephant : Animal
     {
         public Elephant()
         {
             DefaultHealth = 7;
             CurrentHealth = 7;
-            State = State.Full;
         }
-
-        public int DefaultHealth { get; }
-        public int CurrentHealth { get; set; }
-        public State State { get; set; }
-        public string Name { get; set; }
     }
 }
