@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 using ZooImitation.AnimalTypes;
 
 namespace ZooImitation
@@ -7,11 +8,18 @@ namespace ZooImitation
     {
         static void Main(string[] args)
         {
+            #region Animals hardcode create
+            var animals = new AnimalRepository();
+            var zoo = new Zoo(animals);
+
+            animals.Add(new Fox(), "Foxxy");
+            animals.Add(new Lion(), "Symba");
+            animals.Add(new Tiger(), "Sharhan");
+
+            #endregion
+
             try
             {
-                var animals = new AnimalRepository();
-                var zoo = new Zoo(animals);
-                var breakLogic = true;
                 do
                 {
                     Console.WriteLine(new string('*', 22));
@@ -71,8 +79,12 @@ namespace ZooImitation
                             animals.ShowAnimals();
                             break;
                     }
+                    if(animals.Count == 0)
+                    {
+                        Console.WriteLine("\n\n****All animals are dead!****");
+                    }
                 }
-                while (breakLogic);  
+                while (animals.Count > 0);  
             }
             catch (ApplicationException ex)
             {
