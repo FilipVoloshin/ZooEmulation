@@ -30,7 +30,6 @@ namespace ZooImitation
 
         private void StartSimulation()
         {
-            Console.ForegroundColor = ConsoleColor.Red;
             try
             {
                 var randomNumber = GetRandomNumber();

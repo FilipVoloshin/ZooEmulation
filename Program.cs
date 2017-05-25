@@ -19,7 +19,6 @@ namespace ZooImitation
             #endregion
             
             var zoo = new Zoo(animals, 5); 
-
             try
             {
                 do
