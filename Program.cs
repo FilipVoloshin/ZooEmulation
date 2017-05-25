@@ -17,19 +17,18 @@ namespace ZooImitation
             animals.Add(new Wolf(), "Bobik");
             animals.Add(new Tiger(), "Sharhan");
             #endregion
-            
-            var zoo = new Zoo(animals, 5); 
-            try
+
+            var zoo = new Zoo(animals, 5);
+
+            while (animals.Count != 0)
             {
-                do
+                Console.WriteLine(new string('*', 22));
+                Console.WriteLine("Choose action:\n1. Add animal \n2. Feed animal\n" +
+                    "3. Cure animal \n4. Remove dead animals\n5. Show all animals in zoo\n");
+                Console.WriteLine(new string('*', 22));
+                try
                 {
-                    Console.WriteLine(new string('*', 22));
-                    Console.WriteLine("Choose action:\n1. Add animal \n2. Feed animal\n" +
-                        "3. Cure animal \n4. Remove dead animals\n5. Show all animals in zoo\n");
-                    Console.WriteLine(new string('*', 22));
-
                     var variant = Convert.ToInt32(Console.ReadLine());
-
                     switch (variant)
                     {
                         case 1:
@@ -59,8 +58,7 @@ namespace ZooImitation
                                     animals.Add(new Wolf(), name);
                                     break;
                                 default:
-                                    Console.WriteLine("Unknown type of animal!");
-                                    break;
+                                    throw new ArgumentException("Unknown operation");
                             }
                             break;
                         case 2:
@@ -87,14 +85,14 @@ namespace ZooImitation
                         Console.WriteLine("\n\n****All animals are dead!****");
                     }
                 }
-                while (animals.Count != 0);
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e.Message);
+                catch
+                {
+                    Console.BackgroundColor = ConsoleColor.DarkBlue;
+                    Console.WriteLine("\n Unknown operation\n");
+                    Console.BackgroundColor = ConsoleColor.Black;
+                }
             }
         }
-
     }
 }
 
