@@ -6,7 +6,7 @@ using ZooImitation.Enums;
 
 namespace ZooImitation
 {
-    public class AnimalRepository : IAnimalRepository
+    public class AnimalRepository
     {
         private IList<IAnimal> _animalList;
 
@@ -15,7 +15,7 @@ namespace ZooImitation
             _animalList = new List<IAnimal>();
         }
 
-        public IList<IAnimal> Animals => _animalList; //Repo logic
+        public IList<IAnimal> Animals => _animalList;
         public int Count => _animalList.Count();
 
         /// <summary>

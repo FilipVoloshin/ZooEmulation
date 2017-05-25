@@ -14,6 +14,10 @@ namespace ZooImitation
             _timer = new Timer(e => StartSimulation(), null, TimeSpan.Zero, TimeSpan.FromSeconds(timerSeconds));
         }
 
+        /// <summary>
+        /// Gets a random number between zero and animals count
+        /// </summary>
+        /// <returns>random number</returns>
         private int GetRandomNumber()
         {
             var random = new Random();
@@ -28,6 +32,9 @@ namespace ZooImitation
                 throw new ApplicationException("All animals are dead!");
         }
 
+        /// <summary>
+        /// Starts simulation of the zoo
+        /// </summary>
         private void StartSimulation()
         {
             try
