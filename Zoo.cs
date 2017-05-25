@@ -4,11 +4,24 @@ using ZooImitation.Enums;
 
 namespace ZooImitation
 {
+    class ZooIsEmptyException : Exception
+    {
+        public ZooIsEmptyException()
+        {
+
+        }
+        public ZooIsEmptyException(string message)
+            : base(message)
+        {
+
+        }
+    }
+
     class Zoo
     {
         private AnimalRepository _animals;
         private Timer _timer;
-        public Zoo(AnimalRepository animals,int timerSeconds)
+        public Zoo(AnimalRepository animals, int timerSeconds)
         {
             _animals = animals;
             _timer = new Timer(e => StartSimulation(), null, TimeSpan.Zero, TimeSpan.FromSeconds(timerSeconds));
@@ -29,7 +42,7 @@ namespace ZooImitation
                 return randomValue;
             }
             else
-                throw new ApplicationException("All animals are dead!");
+                throw new ZooIsEmptyException("All animals are dead!");
         }
 
         /// <summary>
@@ -73,7 +86,7 @@ namespace ZooImitation
                 }
                 message.ConsoleWrite();
             }
-            catch (ApplicationException ex)
+            catch (ZooIsEmptyException ex)
             {
                 Console.WriteLine(ex.Message);
                 Thread.Sleep(1000);
