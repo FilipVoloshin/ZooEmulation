@@ -12,10 +12,14 @@ namespace ZooImitation
 
             #region Animals hardcode create
             var animals = new AnimalRepository();
-
+            animals.Add(new Lion(), "Leva");
+            animals.Add(new Fox(), "Kolobok");
+            animals.Add(new Wolf(), "Bobik");
+            animals.Add(new Tiger(), "Sharhan");
             #endregion
             
             var zoo = new Zoo(animals, 5); 
+
             try
             {
                 do
