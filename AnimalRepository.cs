@@ -142,13 +142,13 @@ namespace ZooImitation
         /// </summary>
         public void ShowAllAnimalsGroupedByType()
         {
-            var queryResult = _animalList.GroupBy(a => a.GetType().Name)
+            var animalQuery = _animalList.GroupBy(a => a.GetType().Name)
                 .Select(a => new
                 {
                     AnimalType = a.Key,
                     Animals = a.Select(s => s)
                 });
-            foreach (var animal in queryResult)
+            foreach (var animal in animalQuery)
             {
                 Console.BackgroundColor = ConsoleColor.Blue;
                 Console.WriteLine($"{animal.AnimalType}");
@@ -225,7 +225,7 @@ namespace ZooImitation
         /// </summary>
         public void ShowTheHealthiestAnimalsByType()
         {
-            var animalsQuery = _animalList.OrderByDescending(animal=>animal.CurrentHealth)
+            var animalsQuery = _animalList.OrderByDescending(animal => animal.CurrentHealth)
                 .GroupBy(animal => animal.GetType().Name)
                 .Select(a => new
                 {
@@ -245,31 +245,52 @@ namespace ZooImitation
             }
         }
 
-        /// <summary>
-        /// Shows wolfs and bears with health more than 3
-        /// </summary>
-        public void ShowWolfsAndBearsWhereHealthMoreThan3()
+        public void ShowCountOfDeadAnimals()
         {
-            var animalsQuery = _animalList.Where(animal => animal.CurrentHealth > 3)
-                .Where(animal => animal.GetType().Name == "Wolf" || animal.GetType().Name == "Bear")
-                .ToList();
-            animalsQuery.ShowQueryResult("There are no wolfs and bears with health more than 3");
+            var animalQuery = _animalList.Where(animal => animal.State == State.Dead).
+                GroupBy(a => a.GetType().Name)
+                .Select(a => new
+                {
+                    AnimalType = a.Key,
+                    Count = a.Count()
+                });
+            if(animalQuery.Count() == 0)
+            {
+                Console.WriteLine("Fuck u");
+            }
+            foreach (var animal in animalQuery)
+            {
+                Console.BackgroundColor = ConsoleColor.Blue;
+                Console.WriteLine($"{animal.AnimalType}: {animal.Count}");
+                Console.BackgroundColor = ConsoleColor.Black;
+            }
         }
 
-        //public void ShowMaxMinHealthAnimal()
-        //{
-            
-        //}
+            /// <summary>
+            /// Shows wolfs and bears with health more than 3
+            /// </summary>
+            public void ShowWolfsAndBearsWhereHealthMoreThan3()
+            {
+                var animalsQuery = _animalList.Where(animal => animal.CurrentHealth > 3)
+                    .Where(animal => animal.GetType().Name == "Wolf" || animal.GetType().Name == "Bear")
+                    .ToList();
+                animalsQuery.ShowQueryResult("There are no wolfs and bears with health more than 3");
+            }
 
-       /// <summary>
-       /// Shows average health of all animals in the zoo
-       /// </summary>
-        public void ShowAverageHealth()
-        {
-            var average = _animalList.Average(a => a.CurrentHealth);
-            Console.WriteLine($"Average health of all animals - {average}");
+            //public void ShowMaxMinHealthAnimal()
+            //{
+
+            //}
+
+            /// <summary>
+            /// Shows average health of all animals in the zoo
+            /// </summary>
+            public void ShowAverageHealth()
+            {
+                var average = _animalList.Average(a => a.CurrentHealth);
+                Console.WriteLine($"Average health of all animals - {average}");
+            }
+
+            #endregion
         }
-
-        #endregion
     }
-}

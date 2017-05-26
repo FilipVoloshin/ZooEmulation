@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 using ZooImitation.Animals;
 using ZooImitation.Enums;
 
@@ -18,6 +19,7 @@ namespace ZooImitation
             animals.Add(new Tiger(), "Sharhan");
             animals.Add(new Tiger(), "Polosatik");
             animals.Add(new Elephant(), "Vuhatiy");
+            Thread.Sleep(1000);
             #endregion
 
             var zoo = new Zoo(animals, 5);
@@ -86,9 +88,10 @@ namespace ZooImitation
                                     "\n2. Show animals by state:\n3. Show all ill tigers" +
                                     "\n4. Show animals with entered name\n5. Show names of hungry animals\n" +
                                     "6. Show the helthiest animals of each type\n" +
-                                    "7. Show wolfs and bears with health more than 3\n" +
-                                    "8. Show max health animal and min health animal\n" +
-                                    "9. Show average health of all animals in the zoo");
+                                    "7. Show count of dead animals by their group\n" +
+                                    "8. Show wolfs and bears with health more than 3\n" +
+                                    "9. Show max health animal and min health animal\n" +
+                                    "10. Show average health of all animals in the zoo");
                                 int linqSwitchOperator = Convert.ToInt32(Console.ReadLine());
                                 switch (linqSwitchOperator)
                                 {
@@ -141,15 +144,20 @@ namespace ZooImitation
                                         }
                                     case 7:
                                         {
-                                            animals.ShowWolfsAndBearsWhereHealthMoreThan3();
+                                            animals.ShowCountOfDeadAnimals();
                                             break;
                                         }
                                     case 8:
                                         {
-                                            //animals.ShowMaxMinHealthAnimal();
+                                            animals.ShowWolfsAndBearsWhereHealthMoreThan3();
                                             break;
                                         }
                                     case 9:
+                                        {
+                                            //animals.ShowMaxMinHealthAnimal();
+                                            break;
+                                        }
+                                    case 10:
                                         {
                                             animals.ShowAverageHealth();
                                             break;
