@@ -136,6 +136,7 @@ namespace ZooImitation
         }
 
         #region LINQ Methods
+
         /// <summary>
         /// Shows all animals with entered State
         /// </summary>
@@ -144,6 +145,17 @@ namespace ZooImitation
         {
             var animalsQuery = _animalList.Where(animal => animal.State == state).ToList();
             animalsQuery.ShowQueryResult($"No animals whith state - {state}");
+        }
+
+        /// <summary>
+        /// Shows ill tigers in the zoo
+        /// </summary>
+        public void ShowIllTigers()
+        {
+            var animalsQuery = _animalList.Where(animal => animal.State == State.Ill)
+                  .Where(animal => animal.GetType().Name == "Tiger")
+                  .ToList();
+            animalsQuery.ShowQueryResult("There are no ill tigers!");
         }
         #endregion
     }

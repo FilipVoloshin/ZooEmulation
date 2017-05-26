@@ -16,6 +16,7 @@ namespace ZooImitation
             animals.Add(new Fox(), "Kolobok");
             animals.Add(new Wolf(), "Bobik");
             animals.Add(new Tiger(), "Sharhan");
+            animals.Add(new Tiger(), "Polosatik");
             #endregion
 
             var zoo = new Zoo(animals, 5);
@@ -80,7 +81,8 @@ namespace ZooImitation
                             break;
                         case 6: // Linq Operations
                             {
-                                Console.WriteLine("Choose operation:\n1.Show animals by state:");
+                                Console.WriteLine("Choose operation:\n1. Show animals by state:\n2. Show all ill tigers" +
+                                    "");
                                 int linqSwitchOperator = Convert.ToInt32(Console.ReadLine());
                                 switch (linqSwitchOperator)
                                 {
@@ -102,6 +104,11 @@ namespace ZooImitation
                                                 default:
                                                     break;
                                             }
+                                            break;
+                                        }
+                                    case 2:
+                                        {
+                                            animals.ShowIllTigers();
                                             break;
                                         }
                                 }
