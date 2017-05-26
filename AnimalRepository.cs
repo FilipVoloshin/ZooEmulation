@@ -245,12 +245,29 @@ namespace ZooImitation
             }
         }
 
+        /// <summary>
+        /// Shows wolfs and bears with health more than 3
+        /// </summary>
         public void ShowWolfsAndBearsWhereHealthMoreThan3()
         {
             var animalsQuery = _animalList.Where(animal => animal.CurrentHealth > 3)
                 .Where(animal => animal.GetType().Name == "Wolf" || animal.GetType().Name == "Bear")
                 .ToList();
             animalsQuery.ShowQueryResult("There are no wolfs and bears with health more than 3");
+        }
+
+        //public void ShowMaxMinHealthAnimal()
+        //{
+            
+        //}
+
+       /// <summary>
+       /// Shows average health of all animals in the zoo
+       /// </summary>
+        public void ShowAverageHealth()
+        {
+            var average = _animalList.Average(a => a.CurrentHealth);
+            Console.WriteLine($"Average health of all animals - {average}");
         }
 
         #endregion

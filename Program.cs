@@ -86,7 +86,9 @@ namespace ZooImitation
                                     "\n2. Show animals by state:\n3. Show all ill tigers" +
                                     "\n4. Show animals with entered name\n5. Show names of hungry animals\n" +
                                     "6. Show the helthiest animals of each type\n" +
-                                    "7. Show wolfs and bears with health more than 3");
+                                    "7. Show wolfs and bears with health more than 3\n" +
+                                    "8. Show max health animal and min health animal\n" +
+                                    "9. Show average health of all animals in the zoo");
                                 int linqSwitchOperator = Convert.ToInt32(Console.ReadLine());
                                 switch (linqSwitchOperator)
                                 {
@@ -140,6 +142,16 @@ namespace ZooImitation
                                     case 7:
                                         {
                                             animals.ShowWolfsAndBearsWhereHealthMoreThan3();
+                                            break;
+                                        }
+                                    case 8:
+                                        {
+                                            //animals.ShowMaxMinHealthAnimal();
+                                            break;
+                                        }
+                                    case 9:
+                                        {
+                                            animals.ShowAverageHealth();
                                             break;
                                         }
                                 }
