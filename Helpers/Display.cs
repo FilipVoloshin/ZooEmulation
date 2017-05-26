@@ -20,45 +20,22 @@ namespace ZooImitation
             Console.ForegroundColor = ConsoleColor.White;
         }
 
-        public static void ShowQueryResult(this List<IAnimal> animals, Abilities ability, string errorMessage)
+        public static void ShowQueryResult(this List<IAnimal> animals, string errorMessage)
         {
             Console.ForegroundColor = ConsoleColor.DarkGreen;
-            switch (ability)
-            {
-                case Abilities.ShowName:
+                if (animals.Count > 0)
+                {
+                    foreach (var animal in animals)
                     {
-                        if (animals.Count > 0)
-                        {
-                            foreach (var animal in animals)
-                            {
-                                Console.WriteLine($"{animal.Name}");
-                            }
-                        }
-                        else
-                        {
-                            errorMessage.ConsoleWrite();
-                        }
-                        break;
+                        Console.WriteLine($"{animal.Name} with name {animal.GetType().Name} is {animal.State}. " +
+                            $"He has {animal.CurrentHealth}/{animal.DefaultHealth} point of health");
                     }
-
-                case Abilities.ShowAllInformation:
-                    {
-                        if (animals.Count > 0)
-                        {
-                            foreach (var animal in animals)
-                            {
-                                Console.WriteLine($"{animal.Name} with name {animal.GetType().Name} is {animal.State}. " +
-                                    $"He has {animal.CurrentHealth}/{animal.DefaultHealth} point of health");
-                            }
-                        }
-                        else
-                        {
-                            errorMessage.ConsoleWrite();
-                        }
-                        break;
-                    }
-            }
-            Console.ForegroundColor = ConsoleColor.White;
+                }
+                else
+                {
+                    errorMessage.ConsoleWrite();
+                }
+                Console.ForegroundColor = ConsoleColor.White;
         }
     }
 }
