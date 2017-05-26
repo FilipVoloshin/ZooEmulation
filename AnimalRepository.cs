@@ -146,13 +146,12 @@ namespace ZooImitation
                 .Select(a => new
                 {
                     AnimalType = a.Key,
-                    Count = a.Count(),
                     Animals = a.Select(s => s)
                 });
             foreach (var animal in queryResult)
             {
                 Console.BackgroundColor = ConsoleColor.Blue;
-                Console.WriteLine($"{animal.AnimalType}:{animal.Count}");
+                Console.WriteLine($"{animal.AnimalType}");
                 foreach (var group in animal.Animals)
                 {
                     Console.BackgroundColor = ConsoleColor.Black;
@@ -246,8 +245,13 @@ namespace ZooImitation
             }
         }
 
-
-
+        public void ShowWolfsAndBearsWhereHealthMoreThan3()
+        {
+            var animalsQuery = _animalList.Where(animal => animal.CurrentHealth > 3)
+                .Where(animal => animal.GetType().Name == "Wolf" || animal.GetType().Name == "Bear")
+                .ToList();
+            animalsQuery.ShowQueryResult("There are no wolfs and bears with health more than 3");
+        }
 
         #endregion
     }

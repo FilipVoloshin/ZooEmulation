@@ -85,8 +85,8 @@ namespace ZooImitation
                                 Console.WriteLine("Choose operation:\n1. Show all animals by their groups" +
                                     "\n2. Show animals by state:\n3. Show all ill tigers" +
                                     "\n4. Show animals with entered name\n5. Show names of hungry animals\n" +
-                                    "6. Show the helthiest animals of each type" +
-                                    "7. ");
+                                    "6. Show the helthiest animals of each type\n" +
+                                    "7. Show wolfs and bears with health more than 3");
                                 int linqSwitchOperator = Convert.ToInt32(Console.ReadLine());
                                 switch (linqSwitchOperator)
                                 {
@@ -135,6 +135,11 @@ namespace ZooImitation
                                     case 6:
                                         {
                                             animals.ShowTheHealthiestAnimalsByType();
+                                            break;
+                                        }
+                                    case 7:
+                                        {
+                                            animals.ShowWolfsAndBearsWhereHealthMoreThan3();
                                             break;
                                         }
                                 }
