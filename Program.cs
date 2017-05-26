@@ -82,12 +82,20 @@ namespace ZooImitation
                             break;
                         case 6: // Linq Operations
                             {
-                                Console.WriteLine("Choose operation:\n1. Show animals by state:\n2. Show all ill tigers" +
-                                    "\n3. Show animals whith entered name \n");
+                                Console.WriteLine("Choose operation:\n1. Show all animals by their groups" +
+                                    "\n2. Show animals by state:\n3. Show all ill tigers" +
+                                    "\n4. Show animals with entered name\n5. Show names of hungry animals\n" +
+                                    "6. Show the helthiest animals of each type" +
+                                    "7. ");
                                 int linqSwitchOperator = Convert.ToInt32(Console.ReadLine());
                                 switch (linqSwitchOperator)
                                 {
                                     case 1:
+                                        {
+                                            animals.ShowAllAnimalsGroupedByType();
+                                            break;
+                                        }
+                                    case 2:
                                         {
                                             Console.WriteLine("Choose state: \n1. Full\n2. Hungry\n3. Ill");
                                             int state = Convert.ToInt32(Console.ReadLine());
@@ -107,16 +115,26 @@ namespace ZooImitation
                                             }
                                             break;
                                         }
-                                    case 2:
+                                    case 3:
                                         {
                                             animals.ShowIllTigers();
                                             break;
                                         }
-                                    case 3:
+                                    case 4:
                                         {
                                             Console.WriteLine("Enter elephant\'s name:");
                                             string elephantName = Console.ReadLine();
                                             animals.ShowElephantByName(elephantName);
+                                            break;
+                                        }
+                                    case 5:
+                                        {
+                                            animals.ShowNamesOfHungryAnimals();
+                                            break;
+                                        }
+                                    case 6:
+                                        {
+                                            animals.ShowTheHealthiestAnimalsByType();
                                             break;
                                         }
                                 }

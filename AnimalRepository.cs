@@ -138,6 +138,31 @@ namespace ZooImitation
         #region LINQ Methods
 
         /// <summary>
+        /// Shows all animals by groups
+        /// </summary>
+        public void ShowAllAnimalsGroupedByType()
+        {
+            var queryResult = _animalList.GroupBy(a => a.GetType().Name)
+                .Select(a => new
+                {
+                    AnimalType = a.Key,
+                    Count = a.Count(),
+                    Animals = a.Select(s => s)
+                });
+            foreach (var animal in queryResult)
+            {
+                Console.BackgroundColor = ConsoleColor.Blue;
+                Console.WriteLine($"{animal.AnimalType}:{animal.Count}");
+                foreach (var group in animal.Animals)
+                {
+                    Console.BackgroundColor = ConsoleColor.Black;
+                    Console.WriteLine($"{group.Name}");
+                }
+                Console.BackgroundColor = ConsoleColor.Black;
+            }
+        }
+
+        /// <summary>
         /// Shows all animals with entered State
         /// </summary>
         /// <param name="state"></param>
@@ -169,6 +194,61 @@ namespace ZooImitation
                 .ToList();
             animalsQuery.ShowQueryResult($"There are no elephants with name {name}");
         }
+
+        /// <summary>
+        /// Shows all names of hungry animals
+        /// </summary>
+        public void ShowNamesOfHungryAnimals()
+        {
+            var animalsQuery = _animalList.Where(animal => animal.State == State.Hungry)
+                .Select(animal => animal.Name)
+                .ToList();
+            if (animalsQuery.Count > 0)
+            {
+                foreach (var name in animalsQuery)
+                {
+                    Console.ForegroundColor = ConsoleColor.DarkGreen;
+                    Console.WriteLine(name);
+                    Console.ForegroundColor = ConsoleColor.White;
+                }
+            }
+            else
+            {
+                Console.ForegroundColor = ConsoleColor.DarkGreen;
+                Console.WriteLine("There are no hungry animals in the zoo!");
+                Console.ForegroundColor = ConsoleColor.White;
+            }
+
+        }
+
+        /// <summary>
+        /// Shows the healthiest animals by their type
+        /// </summary>
+        public void ShowTheHealthiestAnimalsByType()
+        {
+            var animalsQuery = _animalList.OrderByDescending(animal=>animal.CurrentHealth)
+                .GroupBy(animal => animal.GetType().Name)
+                .Select(a => new
+                {
+                    AnimalType = a.Key,
+                    Animals = a.Select(animal => animal)
+                });
+            foreach (var animal in animalsQuery)
+            {
+                Console.BackgroundColor = ConsoleColor.Blue;
+                Console.WriteLine(animal.AnimalType);
+                foreach (var group in animal.Animals)
+                {
+                    Console.BackgroundColor = ConsoleColor.Black;
+                    Console.WriteLine($"{group.Name} + {group.CurrentHealth}/{group.DefaultHealth}");
+                }
+                Console.BackgroundColor = ConsoleColor.Black;
+            }
+        }
+
+
+
+
         #endregion
     }
 }
