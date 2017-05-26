@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using ZooImitation.Abstract;
+using ZooImitation.Enums;
 
 namespace ZooImitation
 {
@@ -14,26 +15,51 @@ namespace ZooImitation
         {
             Console.ForegroundColor = ConsoleColor.Red;
             var wordsCount = message.Length + 3;
-            Console.WriteLine(new string('-',wordsCount));
+            Console.WriteLine(new string('-', wordsCount));
             Console.WriteLine($" - {message}");
             Console.ForegroundColor = ConsoleColor.White;
         }
 
-        public static void ShowQueryResult(this List<IAnimal> animals, string errorMessage)
+        public static void ShowQueryResult(this List<IAnimal> animals, Abilities ability, string errorMessage)
         {
             Console.ForegroundColor = ConsoleColor.DarkGreen;
-            if (animals.Count > 0)
+            switch (ability)
             {
-                foreach (var animal in animals)
-                {
-                    Console.WriteLine($"{animal.Name} with name {animal.GetType().Name} is {animal.State}. " +
-                        $"He has {animal.CurrentHealth}/{animal.DefaultHealth} point of health");
-                }
+                case Abilities.ShowName:
+                    {
+                        if (animals.Count > 0)
+                        {
+                            foreach (var animal in animals)
+                            {
+                                Console.WriteLine($"{animal.Name}");
+                            }
+                        }
+                        else
+                        {
+                            errorMessage.ConsoleWrite();
+                        }
+                        break;
+                    }
+
+                case Abilities.ShowAllInformation:
+                    {
+                        if (animals.Count > 0)
+                        {
+                            foreach (var animal in animals)
+                            {
+                                Console.WriteLine($"{animal.Name} with name {animal.GetType().Name} is {animal.State}. " +
+                                    $"He has {animal.CurrentHealth}/{animal.DefaultHealth} point of health");
+                            }
+                        }
+                        else
+                        {
+                            errorMessage.ConsoleWrite();
+                        }
+                        break;
+                    }
+
             }
-            else
-            {
-                errorMessage.ConsoleWrite();
-            }
+
             Console.ForegroundColor = ConsoleColor.White;
         }
     }

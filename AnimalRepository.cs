@@ -144,7 +144,7 @@ namespace ZooImitation
         public void ShowAnimalsByState(State state)
         {
             var animalsQuery = _animalList.Where(animal => animal.State == state).ToList();
-            animalsQuery.ShowQueryResult($"No animals whith state - {state}");
+            animalsQuery.ShowQueryResult(Abilities.ShowAllInformation,$"No animals whith state - {state}");
         }
 
         /// <summary>
@@ -155,15 +155,19 @@ namespace ZooImitation
             var animalsQuery = _animalList.Where(animal => animal.State == State.Ill)
                   .Where(animal => animal.GetType().Name == "Tiger")
                   .ToList();
-            animalsQuery.ShowQueryResult("There are no ill tigers!");
+            animalsQuery.ShowQueryResult(Abilities.ShowAllInformation,"There are no ill tigers!");
         }
 
+        /// <summary>
+        /// Shows elephants by their names
+        /// </summary>
+        /// <param name="name">elephant's name</param>
         public void ShowElephantByName(string name)
         {
             var animalsQuery = _animalList.Where(animal => animal.GetType().Name == "Elephant")
                 .Where(animal => animal.Name == name)
                 .ToList();
-            animalsQuery.ShowQueryResult($"There are no elephants with name {name}");
+            animalsQuery.ShowQueryResult(Abilities.ShowAllInformation,$"There are no elephants with name {name}");
         }
         #endregion
     }

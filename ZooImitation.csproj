@@ -51,6 +51,7 @@
     <Compile Include="Animals\Lion.cs" />
     <Compile Include="Animals\Tiger.cs" />
     <Compile Include="Animals\Wolf.cs" />
+    <Compile Include="Enums\Abilities.cs" />
     <Compile Include="Enums\State.cs" />
     <Compile Include="Helpers\Display.cs" />
     <Compile Include="Program.cs" />
