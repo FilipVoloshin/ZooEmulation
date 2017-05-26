@@ -157,6 +157,14 @@ namespace ZooImitation
                   .ToList();
             animalsQuery.ShowQueryResult("There are no ill tigers!");
         }
+
+        public void ShowElephantByName(string name)
+        {
+            var animalsQuery = _animalList.Where(animal => animal.GetType().Name == "Elephant")
+                .Where(animal => animal.Name == name)
+                .ToList();
+            animalsQuery.ShowQueryResult($"There are no elephants with name {name}");
+        }
         #endregion
     }
 }
