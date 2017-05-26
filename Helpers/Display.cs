@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using ZooImitation.Abstract;
 
 namespace ZooImitation
 {
@@ -14,6 +16,23 @@ namespace ZooImitation
             var wordsCount = message.Length + 3;
             Console.WriteLine(new string('-',wordsCount));
             Console.WriteLine($" - {message}");
+            Console.ForegroundColor = ConsoleColor.White;
+        }
+
+        public static void ShowQueryResult(this List<IAnimal> animals, string errorMessage)
+        {
+            Console.ForegroundColor = ConsoleColor.DarkGreen;
+            if (animals.Count > 0)
+            {
+                foreach (var animal in animals)
+                {
+                    Console.WriteLine($"{animal.Name} - {animal.GetType().Name}");
+                }
+            }
+            else
+            {
+                errorMessage.ConsoleWrite();
+            }
             Console.ForegroundColor = ConsoleColor.White;
         }
     }
