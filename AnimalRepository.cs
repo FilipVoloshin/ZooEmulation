@@ -23,8 +23,8 @@ namespace ZooImitation
         /// </summary>
         public void ShowAnimals()
         {
-            Console.WriteLine(new string('-',86));
-            foreach(var animal in _animalList)
+            Console.WriteLine(new string('-', 86));
+            foreach (var animal in _animalList)
             {
                 Console.WriteLine($"Type - {animal.GetType().Name},\t Name - {animal.Name},\t" +
                                   $"State - {animal.State},\t CurrentHealth - {animal.CurrentHealth},\t" +
@@ -104,7 +104,7 @@ namespace ZooImitation
                 if (animal.CurrentHealth < animal.DefaultHealth)
                 {
                     animal.CurrentHealth += 1;
-                    message =  $"Animal ({animal.GetType().Name}) {name} healed.";
+                    message = $"Animal ({animal.GetType().Name}) {name} healed.";
                 }
                 else
                 {
@@ -132,7 +132,19 @@ namespace ZooImitation
             {
                 message = "Good news. There are no dead animals in the zoo.";
                 message.ConsoleWrite();
-            }  
+            }
         }
+
+        #region LINQ Methods
+        /// <summary>
+        /// Shows all animals with entered State
+        /// </summary>
+        /// <param name="state"></param>
+        public void ShowAnimalsByState(State state)
+        {
+            var animalsQuery = _animalList.Where(animal => animal.State == state).ToList();
+            animalsQuery.ShowQueryResult($"No animals whith state - {state}");
+        }
+        #endregion
     }
 }

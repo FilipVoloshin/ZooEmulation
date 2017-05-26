@@ -1,5 +1,6 @@
 ﻿using System;
-using ZooImitation.Animals;
+using ZooImitation.AnimalTypes;
+using ZooImitation.Enums;
 
 namespace ZooImitation
 {
@@ -23,7 +24,8 @@ namespace ZooImitation
             {
                 Console.WriteLine(new string('*', 22));
                 Console.WriteLine("Choose action:\n1. Add animal \n2. Feed animal\n" +
-                    "3. Cure animal \n4. Remove dead animals\n5. Show all animals in zoo\n");
+                    "3. Cure animal \n4. Remove dead animals\n5. Show all animals in zoo\n" +
+                    "6. LINQ operations");
                 Console.WriteLine(new string('*', 22));
                 try
                 {
@@ -76,6 +78,35 @@ namespace ZooImitation
                         case 5:
                             animals.ShowAnimals();
                             break;
+                        case 6: // Linq Operations
+                            {
+                                Console.WriteLine("Choose operation:\n1.Show animals by state:");
+                                int linqSwitchOperator = Convert.ToInt32(Console.ReadLine());
+                                switch (linqSwitchOperator)
+                                {
+                                    case 1:
+                                        {
+                                            Console.WriteLine("Choose state: \n1. Full\n2. Hungry\n3. Ill");
+                                            int state = Convert.ToInt32(Console.ReadLine());
+                                            switch (state)
+                                            {
+                                                case 1:
+                                                    animals.ShowAnimalsByState(State.Full);
+                                                    break;
+                                                case 2:
+                                                    animals.ShowAnimalsByState(State.Hungry);
+                                                    break;
+                                                case 3:
+                                                    animals.ShowAnimalsByState(State.Ill);
+                                                    break;
+                                                default:
+                                                    break;
+                                            }
+                                            break;
+                                        }
+                                }
+                                break;
+                            }
                         default:
                             break;
                     }
