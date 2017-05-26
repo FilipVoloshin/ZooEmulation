@@ -26,7 +26,8 @@ namespace ZooImitation
             {
                 foreach (var animal in animals)
                 {
-                    Console.WriteLine($"{animal.Name} - {animal.GetType().Name}");
+                    Console.WriteLine($"{animal.Name} with name {animal.GetType().Name} is {animal.State}. " +
+                        $"He has {animal.CurrentHealth}/{animal.DefaultHealth} point of health");
                 }
             }
             else
