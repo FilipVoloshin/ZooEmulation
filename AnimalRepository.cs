@@ -23,8 +23,8 @@ namespace ZooImitation
         /// </summary>
         public void ShowAnimals()
         {
-            Console.WriteLine(new string('-',86));
-            foreach(var animal in _animalList)
+            Console.WriteLine(new string('-', 86));
+            foreach (var animal in _animalList)
             {
                 Console.WriteLine($"Type - {animal.GetType().Name},\t Name - {animal.Name},\t" +
                                   $"State - {animal.State},\t CurrentHealth - {animal.CurrentHealth},\t" +
@@ -104,7 +104,7 @@ namespace ZooImitation
                 if (animal.CurrentHealth < animal.DefaultHealth)
                 {
                     animal.CurrentHealth += 1;
-                    message =  $"Animal ({animal.GetType().Name}) {name} healed.";
+                    message = $"Animal ({animal.GetType().Name}) {name} healed.";
                 }
                 else
                 {
@@ -132,7 +132,175 @@ namespace ZooImitation
             {
                 message = "Good news. There are no dead animals in the zoo.";
                 message.ConsoleWrite();
-            }  
+            }
         }
+
+        #region LINQ Methods
+
+        /// <summary>
+        /// Shows all animals by groups
+        /// </summary>
+        public void ShowAllAnimalsGroupedByType()
+        {
+            var animalQuery = _animalList.GroupBy(a => a.GetType().Name)
+                .Select(a => new
+                {
+                    AnimalType = a.Key,
+                    Animals = a.Select(s => s)
+                });
+            foreach (var animal in animalQuery)
+            {
+                Console.BackgroundColor = ConsoleColor.Blue;
+                Console.WriteLine($"{animal.AnimalType}");
+                foreach (var group in animal.Animals)
+                {
+                    Console.BackgroundColor = ConsoleColor.Black;
+                    Console.WriteLine($"{group.Name}");
+                }
+                Console.BackgroundColor = ConsoleColor.Black;
+            }
+        }
+
+        /// <summary>
+        /// Shows all animals with entered State
+        /// </summary>
+        /// <param name="state"></param>
+        public void ShowAnimalsByState(State state)
+        {
+            var animalsQuery = _animalList.Where(animal => animal.State == state).ToList();
+            animalsQuery.ShowQueryResult($"No animals whith state - {state}");
+        }
+
+        /// <summary>
+        /// Shows ill tigers in the zoo
+        /// </summary>
+        public void ShowIllTigers()
+        {
+            var animalsQuery = _animalList.Where(animal => animal.State == State.Ill)
+                  .Where(animal => animal.GetType().Name == "Tiger")
+                  .ToList();
+            animalsQuery.ShowQueryResult("There are no ill tigers!");
+        }
+
+        /// <summary>
+        /// Shows elephants by their names
+        /// </summary>
+        /// <param name="name">elephant's name</param>
+        public void ShowElephantByName(string name)
+        {
+            var animalsQuery = _animalList.Where(animal => animal.GetType().Name == "Elephant")
+                .Where(animal => animal.Name == name)
+                .ToList();
+            animalsQuery.ShowQueryResult($"There are no elephants with name {name}");
+        }
+
+        /// <summary>
+        /// Shows all names of hungry animals
+        /// </summary>
+        public void ShowNamesOfHungryAnimals()
+        {
+            var animalsQuery = _animalList.Where(animal => animal.State == State.Hungry)
+                .Select(animal => animal.Name)
+                .ToList();
+            if (animalsQuery.Count > 0)
+            {
+                foreach (var name in animalsQuery)
+                {
+                    Console.ForegroundColor = ConsoleColor.DarkGreen;
+                    Console.WriteLine(name);
+                    Console.ForegroundColor = ConsoleColor.White;
+                }
+            }
+            else
+            {
+                Console.ForegroundColor = ConsoleColor.DarkGreen;
+                Console.WriteLine("There are no hungry animals in the zoo!");
+                Console.ForegroundColor = ConsoleColor.White;
+            }
+
+        }
+
+        /// <summary>
+        /// Shows the healthiest animals by their type
+        /// </summary>
+        public void ShowTheHealthiestAnimalsByType()
+        {
+            var animalsQuery = _animalList.OrderByDescending(animal => animal.CurrentHealth)
+                .GroupBy(animal => animal.GetType().Name)
+                .Select(a => new
+                {
+                    AnimalType = a.Key,
+                    Animals = a.Select(animal => animal)
+                });
+            foreach (var animal in animalsQuery)
+            {
+                Console.BackgroundColor = ConsoleColor.Blue;
+                Console.WriteLine(animal.AnimalType);
+                foreach (var group in animal.Animals)
+                {
+                    Console.BackgroundColor = ConsoleColor.Black;
+                    Console.WriteLine($"{group.Name} + {group.CurrentHealth}/{group.DefaultHealth}");
+                }
+                Console.BackgroundColor = ConsoleColor.Black;
+            }
+        }
+
+        /// <summary>
+        /// Shows all dead animals and their count
+        /// </summary>
+        public void ShowCountOfDeadAnimals()
+        {
+            var animalQuery = _animalList.Where(animal => animal.State == State.Dead).
+                GroupBy(a => a.GetType().Name)
+                .Select(a => new
+                {
+                    AnimalType = a.Key,
+                    Count = a.Count()
+                });
+            if (animalQuery.Count() == 0)
+            {
+                Console.WriteLine("Fuck u");
+            }
+            foreach (var animal in animalQuery)
+            {
+                Console.BackgroundColor = ConsoleColor.Blue;
+                Console.WriteLine($"{animal.AnimalType}: {animal.Count}");
+                Console.BackgroundColor = ConsoleColor.Black;
+            }
+        }
+
+        /// <summary>
+        /// Shows wolfs and bears with health more than 3
+        /// </summary>
+        public void ShowWolfsAndBearsWhereHealthMoreThan3()
+        {
+            var animalsQuery = _animalList.Where(animal => animal.CurrentHealth > 3)
+                .Where(animal => animal.GetType().Name == "Wolf" || animal.GetType().Name == "Bear")
+                .ToList();
+            animalsQuery.ShowQueryResult("There are no wolfs and bears with health more than 3");
+        }
+
+        /// <summary>
+        /// Shows max and min health 
+        /// </summary>
+        public void ShowMaxAndMin()
+        {
+            var maxValue = _animalList.Select(a=>a.CurrentHealth).OrderByDescending(a=>a).Max();
+            var minValue = _animalList.Select(a => a.CurrentHealth).OrderByDescending(a => a).Min();
+
+            Console.WriteLine($"Max health - {maxValue}");
+            Console.WriteLine($"Min health - {minValue}");
+        }
+
+        /// <summary>
+        /// Shows average health of all animals in the zoo
+        /// </summary>
+        public void ShowAverageHealth()
+        {
+            var average = _animalList.Average(a => a.CurrentHealth);
+            Console.WriteLine($"Average health of all animals - {average}");
+        }
+
+        #endregion
     }
 }

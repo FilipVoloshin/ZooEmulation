@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Threading;
 using ZooImitation.Animals;
+using ZooImitation.Enums;
 
 namespace ZooImitation
 {
@@ -15,6 +17,9 @@ namespace ZooImitation
             animals.Add(new Fox(), "Kolobok");
             animals.Add(new Wolf(), "Bobik");
             animals.Add(new Tiger(), "Sharhan");
+            animals.Add(new Tiger(), "Polosatik");
+            animals.Add(new Elephant(), "Vuhatiy");
+            Thread.Sleep(1000);
             #endregion
 
             var zoo = new Zoo(animals, 5);
@@ -23,7 +28,8 @@ namespace ZooImitation
             {
                 Console.WriteLine(new string('*', 22));
                 Console.WriteLine("Choose action:\n1. Add animal \n2. Feed animal\n" +
-                    "3. Cure animal \n4. Remove dead animals\n5. Show all animals in zoo\n");
+                    "3. Cure animal \n4. Remove dead animals\n5. Show all animals in zoo\n" +
+                    "6. LINQ operations");
                 Console.WriteLine(new string('*', 22));
                 try
                 {
@@ -76,6 +82,89 @@ namespace ZooImitation
                         case 5:
                             animals.ShowAnimals();
                             break;
+                        case 6: // Linq Operations
+                            {
+                                Console.WriteLine("Choose operation:\n1. Show all animals by their groups" +
+                                    "\n2. Show animals by state:\n3. Show all ill tigers" +
+                                    "\n4. Show animals with entered name\n5. Show names of hungry animals\n" +
+                                    "6. Show the helthiest animals of each type\n" +
+                                    "7. Show count of dead animals by their group\n" +
+                                    "8. Show wolfs and bears with health more than 3\n" +
+                                    "9. Show max health animal and min health animal\n" +
+                                    "10. Show average health of all animals in the zoo");
+                                int linqSwitchOperator = Convert.ToInt32(Console.ReadLine());
+                                switch (linqSwitchOperator)
+                                {
+                                    case 1:
+                                        {
+                                            animals.ShowAllAnimalsGroupedByType();
+                                            break;
+                                        }
+                                    case 2:
+                                        {
+                                            Console.WriteLine("Choose state: \n1. Full\n2. Hungry\n3. Ill");
+                                            int state = Convert.ToInt32(Console.ReadLine());
+                                            switch (state)
+                                            {
+                                                case 1:
+                                                    animals.ShowAnimalsByState(State.Full);
+                                                    break;
+                                                case 2:
+                                                    animals.ShowAnimalsByState(State.Hungry);
+                                                    break;
+                                                case 3:
+                                                    animals.ShowAnimalsByState(State.Ill);
+                                                    break;
+                                                default:
+                                                    break;
+                                            }
+                                            break;
+                                        }
+                                    case 3:
+                                        {
+                                            animals.ShowIllTigers();
+                                            break;
+                                        }
+                                    case 4:
+                                        {
+                                            Console.WriteLine("Enter elephant\'s name:");
+                                            string elephantName = Console.ReadLine();
+                                            animals.ShowElephantByName(elephantName);
+                                            break;
+                                        }
+                                    case 5:
+                                        {
+                                            animals.ShowNamesOfHungryAnimals();
+                                            break;
+                                        }
+                                    case 6:
+                                        {
+                                            animals.ShowTheHealthiestAnimalsByType();
+                                            break;
+                                        }
+                                    case 7:
+                                        {
+                                            animals.ShowCountOfDeadAnimals();
+                                            break;
+                                        }
+                                    case 8:
+                                        {
+                                            animals.ShowWolfsAndBearsWhereHealthMoreThan3();
+                                            break;
+                                        }
+                                    case 9:
+                                        {
+                                            animals.ShowMaxAndMin();
+                                            break;
+                                        }
+                                    case 10:
+                                        {
+                                            animals.ShowAverageHealth();
+                                            break;
+                                        }
+                                }
+                                break;
+                            }
                         default:
                             break;
                     }
