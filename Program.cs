@@ -154,7 +154,7 @@ namespace ZooImitation
                                         }
                                     case 9:
                                         {
-                                            //animals.ShowMaxMinHealthAnimal();
+                                            animals.ShowMaxAndMin();
                                             break;
                                         }
                                     case 10:

@@ -245,6 +245,9 @@ namespace ZooImitation
             }
         }
 
+        /// <summary>
+        /// Shows all dead animals and their count
+        /// </summary>
         public void ShowCountOfDeadAnimals()
         {
             var animalQuery = _animalList.Where(animal => animal.State == State.Dead).
@@ -254,7 +257,7 @@ namespace ZooImitation
                     AnimalType = a.Key,
                     Count = a.Count()
                 });
-            if(animalQuery.Count() == 0)
+            if (animalQuery.Count() == 0)
             {
                 Console.WriteLine("Fuck u");
             }
@@ -266,31 +269,38 @@ namespace ZooImitation
             }
         }
 
-            /// <summary>
-            /// Shows wolfs and bears with health more than 3
-            /// </summary>
-            public void ShowWolfsAndBearsWhereHealthMoreThan3()
-            {
-                var animalsQuery = _animalList.Where(animal => animal.CurrentHealth > 3)
-                    .Where(animal => animal.GetType().Name == "Wolf" || animal.GetType().Name == "Bear")
-                    .ToList();
-                animalsQuery.ShowQueryResult("There are no wolfs and bears with health more than 3");
-            }
-
-            //public void ShowMaxMinHealthAnimal()
-            //{
-
-            //}
-
-            /// <summary>
-            /// Shows average health of all animals in the zoo
-            /// </summary>
-            public void ShowAverageHealth()
-            {
-                var average = _animalList.Average(a => a.CurrentHealth);
-                Console.WriteLine($"Average health of all animals - {average}");
-            }
-
-            #endregion
+        /// <summary>
+        /// Shows wolfs and bears with health more than 3
+        /// </summary>
+        public void ShowWolfsAndBearsWhereHealthMoreThan3()
+        {
+            var animalsQuery = _animalList.Where(animal => animal.CurrentHealth > 3)
+                .Where(animal => animal.GetType().Name == "Wolf" || animal.GetType().Name == "Bear")
+                .ToList();
+            animalsQuery.ShowQueryResult("There are no wolfs and bears with health more than 3");
         }
+
+        /// <summary>
+        /// Shows max and min health 
+        /// </summary>
+        public void ShowMaxAndMin()
+        {
+            var maxValue = _animalList.Select(a=>a.CurrentHealth).OrderByDescending(a=>a).Max();
+            var minValue = _animalList.Select(a => a.CurrentHealth).OrderByDescending(a => a).Min();
+
+            Console.WriteLine($"Max health - {maxValue}");
+            Console.WriteLine($"Min health - {minValue}");
+        }
+
+        /// <summary>
+        /// Shows average health of all animals in the zoo
+        /// </summary>
+        public void ShowAverageHealth()
+        {
+            var average = _animalList.Average(a => a.CurrentHealth);
+            Console.WriteLine($"Average health of all animals - {average}");
+        }
+
+        #endregion
     }
+}
