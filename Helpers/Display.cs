@@ -57,9 +57,7 @@ namespace ZooImitation
                         }
                         break;
                     }
-
             }
-
             Console.ForegroundColor = ConsoleColor.White;
         }
     }
