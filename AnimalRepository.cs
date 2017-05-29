@@ -188,8 +188,8 @@ namespace ZooImitation
         /// <param name="name">elephant's name</param>
         public void ShowElephantByName(string name)
         {
-            var animalsQuery = _animalList.Where(animal => animal.GetType().Name == "Elephant")
-                .Where(animal => animal.Name == name)
+            var animalsQuery = _animalList
+                .Where(animal => animal.GetType().Name == "Elephant" && animal.Name == name)
                 .ToList();
             animalsQuery.ShowQueryResult($"There are no elephants with name {name}");
         }
@@ -259,7 +259,7 @@ namespace ZooImitation
                 });
             if (animalQuery.Count() == 0)
             {
-                Console.WriteLine("Fuck u");
+                Console.WriteLine("There are no dead animals in the zoo");
             }
             foreach (var animal in animalQuery)
             {
@@ -285,11 +285,15 @@ namespace ZooImitation
         /// </summary>
         public void ShowMaxAndMin()
         {
-            var maxValue = _animalList.Select(a=>a.CurrentHealth).OrderByDescending(a=>a).Max();
-            var minValue = _animalList.Select(a => a.CurrentHealth).OrderByDescending(a => a).Min();
+            var animalsQuery = _animalList
+                .GroupBy(animal => 1)
+                .Select(a => new
+                {
+                    Min = a.Min(x => x.CurrentHealth),
+                    Max = a.Max(x => x.CurrentHealth)
+                }).First();
 
-            Console.WriteLine($"Max health - {maxValue}");
-            Console.WriteLine($"Min health - {minValue}");
+            Console.WriteLine($"Minimum health - {animalsQuery.Min}, Maximum health - {animalsQuery.Max}");
         }
 
         /// <summary>
