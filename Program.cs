@@ -173,10 +173,13 @@ namespace ZooImitation
                         Console.WriteLine("\n\n****All animals are dead!****");
                     }
                 }
-                catch
+                catch(Exception e)
                 {
                     Console.BackgroundColor = ConsoleColor.DarkBlue;
-                    Console.WriteLine("\n Unknown operation\n");
+                    Console.WriteLine(e.Message);            
+                }
+                finally
+                {
                     Console.BackgroundColor = ConsoleColor.Black;
                 }
             }
